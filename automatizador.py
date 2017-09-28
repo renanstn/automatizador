@@ -71,7 +71,7 @@ class App:
 		frameAdicional = self.frameAdicional = Frame(root)
 		frameAdicional.pack(fill='x')
 
-		self.label = Label(frameAdicional, text="Posição: ", width=10)
+		self.label = Label(frameAdicional, text="Clicar: ", width=10)
 		self.campoX = Entry(frameAdicional, width=10)
 		self.campoY = Entry(frameAdicional, width=10)
 		self.butTake = Button(frameAdicional, text="Salvar", command=self.takePosition)
@@ -157,7 +157,7 @@ class App:
 		frameAdicional = self.frameAdicional = Frame(root)
 		frameAdicional.pack(fill='x')
 
-		self.label = Label(frameAdicional, text="Texto: ", width=10)
+		self.label = Label(frameAdicional, text="Digitar: ", width=10)
 		self.text = Entry(frameAdicional)
 		self.label.pack(side=LEFT)
 		self.text.pack(side=LEFT, expand=True, fill='x')
