@@ -71,10 +71,10 @@ class App:
 		frameAdicional = self.frameAdicional = Frame(root)
 		frameAdicional.pack(fill='x')
 
-		self.label = Label(frameAdicional, text="Position: ", width=10)
+		self.label = Label(frameAdicional, text="Posição: ", width=10)
 		self.campoX = Entry(frameAdicional, width=10)
 		self.campoY = Entry(frameAdicional, width=10)
-		self.butTake = Button(frameAdicional, text="Save", command=self.takePosition)
+		self.butTake = Button(frameAdicional, text="Salvar", command=self.takePosition)
 		self.label.pack(side=LEFT)
 		self.campoX.pack(side=LEFT)
 		self.campoY.pack(side=LEFT)
@@ -90,9 +90,9 @@ class App:
 		frameAdicional = self.frameAdicional = Frame(root)
 		frameAdicional.pack(fill='x')
 
-		self.label1 = Label(frameAdicional, text="Wait: ", width=10)
+		self.label1 = Label(frameAdicional, text="Esperar: ", width=10)
 		self.sec = Entry(frameAdicional)
-		self.label2 = Label(frameAdicional, text=" seconds")
+		self.label2 = Label(frameAdicional, text=" segundos")
 		self.label1.pack(side=LEFT)
 		self.sec.pack(side=LEFT)
 		self.label2.pack(side=LEFT)
@@ -107,7 +107,7 @@ class App:
 		frameAdicional.pack(fill='x')
 
 		self.valor = StringVar()
-		self.label1 = Label(frameAdicional, text="Key: ", width=10)
+		self.label1 = Label(frameAdicional, text="Pressionar: ", width=10)
 		# Botao Enter
 		self.key1 = Radiobutton(
 			frameAdicional,
@@ -157,7 +157,7 @@ class App:
 		frameAdicional = self.frameAdicional = Frame(root)
 		frameAdicional.pack(fill='x')
 
-		self.label = Label(frameAdicional, text="Text: ", width=10)
+		self.label = Label(frameAdicional, text="Texto: ", width=10)
 		self.text = Entry(frameAdicional)
 		self.label.pack(side=LEFT)
 		self.text.pack(side=LEFT, expand=True, fill='x')
