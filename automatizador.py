@@ -114,10 +114,9 @@ class App:
 		listaBotoes = ['Enter', 'TAB', 'F5', 'Home', 'End']
 		# Ja setar a opção que virá por padrão
 		botoes.set("-- Escolha --")		
-
+		# OptionMenu
 		self.optionMenu = OptionMenu(frameAdicional, botoes, *listaBotoes, command = lambda key: self.salvaFrame(frameAdicional, ("key", botoes.get())))
-		# Essa bosta dessa lambda deu trabalho pra caralho até eu descobrir qe precisa passar uma variavel depois do 'lambda'  ¬¬
-		# Resolvi enquanto esperava o mozão escovar os dentes :3
+
 		self.label1 = Label(frameAdicional, text="Pressionar: ", width=10)
 
 		self.label1.pack(side=LEFT)
