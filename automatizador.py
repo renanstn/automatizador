@@ -1,7 +1,7 @@
 #!python3
 #encoding: utf-8
 import pyautogui as py
-from tkinter import Tk, Label, Button, Entry, Frame, BOTTOM, LEFT, END, INSERT, Radiobutton, StringVar
+from tkinter import Tk, Label, Button, Entry, Frame, BOTTOM, LEFT, END, INSERT, Radiobutton, StringVar, OptionMenu
 from time import sleep
 
 # Autor: RENAN SANTANA DESIDÉRIO
@@ -15,6 +15,9 @@ class App:
 		self.dados = []
 		# Array para armazenar os frames pro RESET funcionar:
 		self.frames = {}
+		# Salvar o útlimo frame utilizado para não ter duplicidade
+		self.lastFrame = ''
+		# Variável contadora para organizar o array final
 		self.contador = 0
 
 		master.title("Automatizador")
@@ -106,51 +109,22 @@ class App:
 		frameAdicional = self.frameAdicional = Frame(root)
 		frameAdicional.pack(fill='x')
 
-		self.valor = StringVar()
+		botoes = StringVar()
+		# Lista de opções que o option vai ter
+		listaBotoes = ['Enter', 'TAB', 'F5', 'Home', 'End']
+		# Ja setar a opção que virá por padrão
+		botoes.set("-- Escolha --")		
+
+		self.optionMenu = OptionMenu(frameAdicional, botoes, *listaBotoes, command = lambda key: self.salvaFrame(frameAdicional, ("key", botoes.get())))
+		# Essa bosta dessa lambda deu trabalho pra caralho até eu descobrir qe precisa passar uma variavel depois do 'lambda'  ¬¬
+		# Resolvi enquanto esperava o mozão escovar os dentes :3
 		self.label1 = Label(frameAdicional, text="Pressionar: ", width=10)
-		# Botao Enter
-		self.key1 = Radiobutton(
-			frameAdicional,
-			indicatoron	= 0,
-			text 		= "Enter",
-			variable 	= self.valor,
-			value 		= 'enter',
-			command 	= lambda: self.trocaKey(frameAdicional, self.key1, self.valor.get()))
-		# Botao F5
-		self.key2 = Radiobutton(
-			frameAdicional,
-			indicatoron	= 0,
-			text 		= "F5",
-			variable 	= self.valor,
-			value 		= 'f5',
-			command 	= lambda: self.trocaKey(frameAdicional, self.key2, self.valor.get()))
-		# Botao TAB
-		self.key3 = Radiobutton(
-			frameAdicional,
-			indicatoron	= 0,
-			text 		= "TAB",
-			variable 	= self.valor,
-			value 		= 'tab',
-			command 	= lambda: self.trocaKey(frameAdicional, self.key3, self.valor.get()))
 
 		self.label1.pack(side=LEFT)
-		self.key1.pack(side=LEFT, expand=True, fill='x')
-		self.key2.pack(side=LEFT, expand=True, fill='x')
-		self.key3.pack(side=LEFT, expand=True, fill='x')
+		self.optionMenu.pack(side=LEFT, expand=True, fill='x')
+
 		# Atualiza a label de info
 		self.info['text'] = "Selecione a tecla que será pressionada"
-
-	def trocaKey(self, frame, key, value):
-		# Procedimento chamado ao se escolher qual TECLA será pressionada
-
-		# Muda a cor do botão escolhido
-		key['bg'] = 'light grey'
-		# Desativa todos os botões
-		self.key1['state'] = "disabled"
-		self.key2['state'] = "disabled"
-		self.key3['state'] = "disabled"
-		# Chama a função que salva o comando passando a TECLA selecionada
-		self.salvaFrame(frame, ('key', value))
 
 	def addText(self):
 		# Adiciona um comando de TEXTO
@@ -167,7 +141,7 @@ class App:
 		self.info['text'] = "Digite o texto que será digitado"
 
 	def reset(self):
-		# Limpa todos os comandos criatos, reseta a porra toda
+		# Limpa todos os comandos criados, reseta a porra toda
 		try:
 			# Limpar todos os frames criados
 			self.frameAdicional.destroy()
@@ -178,19 +152,24 @@ class App:
 			self.frames = {}
 			self.contador = 0
 			# Atualiza a label de info
-			self.resetInfo()
+			self.info['text'] = "Clique para adicionar um comando"
 		except:
 			pass
 
 	def salvaFrame(self, frame, campo):
-		# Adiciona o frame recém criado ao dicionario, e os campos na lista
-		self.contador += 1
-		self.frames[self.contador] = frame
-		self.dados.append(campo)
-
-	def resetInfo(self):
-		# Atualiza a label de info
-		self.info['text'] = "Clique para adicionar um comando"
+		# Verifica se o frame que está vindo é diferente do último para evitar duplicidade
+		if frame != self.lastFrame:
+			self.contador += 1
+			# Adiciona o frame recém criado ao dicionario, e os campos na lista
+			self.frames[self.contador] = frame
+			self.dados.append(campo)
+			self.lastFrame = frame
+			print(self.frames)
+			print(self.dados)
+		else:
+			self.dados[self.contador-1] = campo
+			print(self.frames)
+			print(self.dados)
 
 	def play(self, *arg):
 		""" Executa a sequencia de macros passada. Verificando primeiro
