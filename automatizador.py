@@ -158,18 +158,17 @@ class App:
 
 	def salvaFrame(self, frame, campo):
 		# Verifica se o frame que está vindo é diferente do último para evitar duplicidade
+		# Caso seja, ele só altera o comando na mesma posição do mesmo
+		# Verificação útil somente no caso das key
 		if frame != self.lastFrame:
 			self.contador += 1
 			# Adiciona o frame recém criado ao dicionario, e os campos na lista
 			self.frames[self.contador] = frame
 			self.dados.append(campo)
 			self.lastFrame = frame
-			print(self.frames)
-			print(self.dados)
+
 		else:
 			self.dados[self.contador-1] = campo
-			print(self.frames)
-			print(self.dados)
 
 	def play(self, *arg):
 		""" Executa a sequencia de macros passada. Verificando primeiro
