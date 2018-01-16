@@ -66,8 +66,6 @@ class App:
 		self.campoY.delete(0, END)
 		self.campoX.insert(INSERT, pos_x)
 		self.campoY.insert(INSERT, pos_y)
-		# Volta o texto inicial de instrução ao usuário
-		self.resetInfo()
 
 	def addClick(self, *arg):
 		# Adiciona um comando de CLICK
