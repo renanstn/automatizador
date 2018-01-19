@@ -1,4 +1,4 @@
 # Automatizador
 
 Este é um pequeno App que criei em Python 3.5 para gravar pequenas macros de mouse/teclado no Windows.
-Com ele você pode programar uma sequência de cliques, tempo de espera, digitação de textos, ou pressionamento de alguns botões (Enter, Tab ou F5) para serem executados automaticamente ao você clicar em Play.
+Com ele você pode programar uma sequência de cliques, tempo de espera, digitação de textos, ou pressionamento de alguns botões (Enter, Tab, F5, Home ou End) para serem executados automaticamente ao você clicar em Play.
