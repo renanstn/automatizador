@@ -5,7 +5,6 @@ from tkinter import Tk, Label, Button, Entry, Frame, BOTTOM, LEFT, END, INSERT, 
 from time import sleep
 
 # Autor: RENAN SANTANA DESIDÉRIO
-# Skyrim belongs to the Nords!   \o/
 
 class App:
 
