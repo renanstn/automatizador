@@ -18,6 +18,8 @@ class App:
 		self.lastFrame = ''
 		# Variável contadora para organizar o array final
 		self.contador = 0
+		# Variável que salva o valor da repeticao
+		self.repetir = 1
 
 		master.title("Automatizador")
 		master.resizable(0,0)
@@ -25,11 +27,15 @@ class App:
 		frameTitle = Frame(master)
 		frameTitle.pack()
 
+		frameRepeat = Frame(master)
+		frameRepeat.pack(side=BOTTOM, fill='x')
+
 		framePlay = Frame(master)
 		framePlay.pack(side=BOTTOM, fill='x')
 
 		frameInsert = Frame(master)
 		frameInsert.pack(side=BOTTOM, fill='x')
+		
 
 		# Label que vai dando 'instruções' ao usuário enquanto ele mexe no bagulho
 		# Este também é o Widget que atualmente define o tamanho da janela:
@@ -42,9 +48,11 @@ class App:
 		self.buttonKey = Button(frameInsert, text="Press. Tecla", command=self.addKey, width=8)
 		self.buttonText = Button(frameInsert, text="Digit. Texto", command=self.addText, width=8)
 		# ------------------------------------------------------------------------------------
-		self.buttonPlay = Button(framePlay, text="Play  =>", command=self.play)
+		self.buttonPlay = Button(framePlay, text="Play", command=self.play)
 		self.buttonReset = Button(framePlay, text="Reset", command=self.reset)
 		self.buttonPlay.bind('<Return>', self.play)
+		self.labelRepeat = Label(frameRepeat, text="Repetir")
+		self.spinRepeat = Spinbox(frameRepeat, from_=1, to=100, width=4, command=lambda: self.alteraRepeticao(self.spinRepeat.get()))
 		# Packs ------------------------------------------------------------------------------
 		self.buttonClick.pack(side=LEFT, expand=True, fill='x')
 		self.buttonWait.pack(side=LEFT, expand=True, fill='x')
@@ -53,8 +61,13 @@ class App:
 
 		self.buttonPlay.pack(fill='x')
 		self.buttonReset.pack(fill='x')
+		self.labelRepeat.pack(side=LEFT, expand=True, anchor="e")
+		self.spinRepeat.pack(side=LEFT)
 
 # ---------------------------------------------------------------------------------------
+	def alteraRepeticao(self, quantidade):
+		self.repetir = int(quantidade)
+
 	def takePosition(self):		
 		# Exibe a posicao atual X e Y do mouse
 		pos = py.position()
@@ -112,7 +125,7 @@ class App:
 		# Ja setar a opção que virá por padrão
 		botoes.set("-- Escolha --")		
 		# OptionMenu
-		self.optionMenu = OptionMenu(frameAdicional, botoes, *listaBotoes, command = lambda key: self.salvaFrame(frameAdicional, ("key", botoes.get())))
+		self.optionMenu = OptionMenu(frameAdicional, botoes, *listaBotoes, command=lambda key: self.salvaFrame(frameAdicional, ("key", botoes.get())))
 
 		self.label1 = Label(frameAdicional, text="Pressionar: ", width=10)
 
@@ -170,37 +183,38 @@ class App:
 		""" Executa a sequencia de macros passada. Verificando primeiro
 			a flag sobre o tipo de evento, e depois pegando os valores.
 		"""
-		for i in self.dados:
-			# Verifica a flag para saber qual comando executar:
-			if i[0] == 'click':
-				try:
-					# Clica com o mouse na posição XY da tela
-					py.click(int(i[1][0].get()), int(i[1][1].get()))
-				except:
-					pass
+		for r in range(self.repetir):
+			for i in self.dados:
+				# Verifica a flag para saber qual comando executar:
+				if i[0] == 'click':
+					try:
+						# Clica com o mouse na posição XY da tela
+						py.click(int(i[1][0].get()), int(i[1][1].get()))
+					except:
+						pass
 
-			elif i[0] == 'time':
-				# Substitui as vírgulas por pontos
-				time = str(i[1].get()).replace(',','.')
-				try:
-					# Aguarda o tempo digitados
-					sleep(float(time))
-				except:
-					pass
+				elif i[0] == 'time':
+					# Substitui as vírgulas por pontos
+					time = str(i[1].get()).replace(',','.')
+					try:
+						# Aguarda o tempo digitados
+						sleep(float(time))
+					except:
+						pass
 
-			elif i[0] == 'text':
-				try:
-					# Digita o que estava no campo
-					py.typewrite(str(i[1].get()))
-				except:
-					pass
+				elif i[0] == 'text':
+					try:
+						# Digita o que estava no campo
+						py.typewrite(str(i[1].get()))
+					except:
+						pass
 
-			elif i[0] == 'key':
-				try:
-					# Pressiona a tecla selecionada
-					py.typewrite([i[1]])
-				except:
-					pass
+				elif i[0] == 'key':
+					try:
+						# Pressiona a tecla selecionada
+						py.typewrite([i[1]])
+					except:
+						pass
 
 if __name__ == '__main__':
 	root = Tk()
