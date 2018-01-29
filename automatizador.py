@@ -3,7 +3,7 @@
 # Autor: Renan Santana Desidério
 
 import pyautogui as py
-from tkinter import Tk, Label, Button, Entry, Frame, BOTTOM, LEFT, END, INSERT, Radiobutton, StringVar, OptionMenu
+from tkinter import Tk, Label, Button, Entry, Frame, BOTTOM, LEFT, END, INSERT, Radiobutton, StringVar, OptionMenu, Spinbox
 from time import sleep
 
 class App:
@@ -91,7 +91,7 @@ class App:
 		frameAdicional.pack(fill='x')
 
 		self.label1 = Label(frameAdicional, text="Esperar: ", width=10)
-		self.sec = Entry(frameAdicional)
+		self.sec = Spinbox(frameAdicional, from_=1, to=10)
 		self.label2 = Label(frameAdicional, text=" segundos")
 		self.label1.pack(side=LEFT)
 		self.sec.pack(side=LEFT)
