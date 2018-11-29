@@ -52,7 +52,7 @@ class App:
 		self.buttonReset = Button(framePlay, text="Reset", command=self.reset)
 		self.buttonPlay.bind('<Return>', self.play)
 		self.labelRepeat = Label(frameRepeat, text="Repetir")
-		self.spinRepeat = Spinbox(frameRepeat, from_=1, to=100, width=4, command=lambda: self.alteraRepeticao(self.spinRepeat.get()))
+		self.spinRepeat = Spinbox(frameRepeat, from_=1, to=100, width=4)
 		# Packs ------------------------------------------------------------------------------
 		self.buttonClick.pack(side=LEFT, expand=True, fill='x')
 		self.buttonWait.pack(side=LEFT, expand=True, fill='x')
@@ -65,9 +65,6 @@ class App:
 		self.spinRepeat.pack(side=LEFT)
 
 # ---------------------------------------------------------------------------------------
-	def alteraRepeticao(self, quantidade):
-		self.repetir = int(quantidade)
-
 	def takePosition(self):		
 		# Exibe a posicao atual X e Y do mouse
 		pos = py.position()
@@ -183,6 +180,7 @@ class App:
 		""" Executa a sequencia de macros passada. Verificando primeiro
 			a flag sobre o tipo de evento, e depois pegando os valores.
 		"""
+		self.repetir = int(self.spinRepeat.get())
 		for r in range(self.repetir):
 			for i in self.dados:
 				# Verifica a flag para saber qual comando executar:
