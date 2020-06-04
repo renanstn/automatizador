@@ -1,6 +1,5 @@
 #!python3
 #encoding: utf-8
-# Autor: Renan Santana Desidério
 
 import pyautogui as py
 from tkinter import Tk, Label, Button, Entry, Frame, BOTTOM, LEFT, END, INSERT, Radiobutton, StringVar, OptionMenu, Spinbox
